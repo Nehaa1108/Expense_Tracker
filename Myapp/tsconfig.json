@@ -3,6 +3,6 @@
   "compilerOptions": {
     "types": ["jest"]
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", "src/screen/AddStudentScreen.jsx", "src/screen/AttendenceScreen.jsx", "src/screen/HomeScreen.jsx", "src/screen/StudentList.jsx"],
   "exclude": ["**/node_modules", "**/Pods"]
 }
