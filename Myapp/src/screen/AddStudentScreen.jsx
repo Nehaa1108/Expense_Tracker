@@ -1,52 +1,129 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import React, { useState } from "react";
+import { View, StyleSheet, Alert } from "react-native";
+import { TextInput, Button, Text, ActivityIndicator } from "react-native-paper";
+import colors from "../utils/colors";
+import { addStudent } from "../services/studentService";
 
-const AddStudentScreen = ({ navigation }) => {
-  const [name, setName] = useState('');
-  const [rollNumber, setRollNumber] = useState('');
+export default function AddStudentScreen({ navigation }) {
+  const [name, setName] = useState("");
+  const [rollNumber, setRollNumber] = useState("");
+  const [className, setClassName] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleAddStudent = () => {
-    const newStudent = {
-      id: Date.now().toString(),
-      name: name,
-      rollNumber: rollNumber,
-    };
+  const handleSubmit = async () => {
+    // Validation
+    if (!name || !rollNumber || !className) {
+      Alert.alert("Error", "All fields are required");
+      return;
+    }
 
-    navigation.navigate('StudentList', { student: newStudent });
+    try {
+      setLoading(true);
 
-    setName('');
-    setRollNumber('');
+      const payload = {
+        name: name.trim(),
+        roll_number: rollNumber.trim(),
+        class_name: className.trim(),
+      };
+
+      await addStudent(payload);
+
+      Alert.alert("Success", "Student added successfully");
+
+      // Clear form
+      setName("");
+      setRollNumber("");
+      setClassName("");
+
+      navigation.goBack();
+
+    } catch (error) {
+      Alert.alert("Error", "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <View style={styles.container}>
-      <TextInput
-        placeholder="Student Name"
-        value={name}
-        onChangeText={setName}
-        style={styles.input}
-      />
+      <View style={styles.card}>
+        <Text style={styles.title}>Add Student</Text>
 
-      <TextInput
-        placeholder="Roll Number"
-        value={rollNumber}
-        onChangeText={setRollNumber}
-        style={styles.input}
-      />
+        <TextInput
+          label="Student Name"
+          mode="outlined"
+          value={name}
+          onChangeText={setName}
+          style={styles.input}
+          textColor={colors.black}
+          outlineColor={colors.border}
+          activeOutlineColor={colors.primary}
+        />
 
-      <Button title="Add Student" onPress={handleAddStudent} />
+        <TextInput
+          label="Roll Number"
+          mode="outlined"
+          value={rollNumber}
+          onChangeText={setRollNumber}
+          keyboardType="numeric"
+          style={styles.input}
+          textColor={colors.black}
+          outlineColor={colors.border}
+          activeOutlineColor={colors.primary}
+        />
+
+        <TextInput
+          label="Class Name"
+          mode="outlined"
+          value={className}
+          onChangeText={setClassName}
+          style={styles.input}
+          textColor={colors.black}
+          outlineColor={colors.border}
+          activeOutlineColor={colors.primary}
+        />
+
+        {loading ? (
+          <ActivityIndicator size="large" color={colors.primary} />
+        ) : (
+          <Button
+            mode="contained"
+            onPress={handleSubmit}
+            style={styles.button}
+          >
+            Save Student
+          </Button>
+        )}
+      </View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20 },
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+    padding: 20,
+    justifyContent: "center",
+  },
+  card: {
+    backgroundColor: colors.white,
+    padding: 20,
+    borderRadius: 14,
+    elevation: 5,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: "bold",
+    marginBottom: 20,
+    color: colors.primary,
+    textAlign: "center",
+  },
   input: {
-    borderWidth: 1,
     marginBottom: 15,
-    padding: 10,
-    borderRadius: 5,
+  },
+  button: {
+    marginTop: 10,
+    paddingVertical: 5,
   },
 });
-
-export default AddStudentScreen;
