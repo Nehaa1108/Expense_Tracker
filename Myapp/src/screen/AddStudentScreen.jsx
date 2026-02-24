@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { View, StyleSheet, Alert } from "react-native";
 import { TextInput, Button, Text, ActivityIndicator } from "react-native-paper";
 import colors from "../utils/colors";
-import { addStudent } from "../services/studentService";
+import { addStudent } from "../service/StudentService"
 
-export default function AddStudentScreen({ navigation }) {
+ function AddStudentScreen({ navigation }) {
   const [name, setName] = useState("");
   const [rollNumber, setRollNumber] = useState("");
   const [className, setClassName] = useState("");
@@ -38,6 +38,7 @@ export default function AddStudentScreen({ navigation }) {
       navigation.goBack();
 
     } catch (error) {
+      console.log("error---",error)
       Alert.alert("Error", "Something went wrong");
     } finally {
       setLoading(false);
@@ -98,6 +99,8 @@ export default function AddStudentScreen({ navigation }) {
     </View>
   );
 }
+
+export default AddStudentScreen
 
 const styles = StyleSheet.create({
   container: {

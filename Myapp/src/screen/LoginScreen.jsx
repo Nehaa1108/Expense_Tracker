@@ -4,7 +4,7 @@ import { TextInput, Button, Text, ActivityIndicator } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../utils/colors";
 
-export default function LoginScreen({ navigation }) {
+ function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -31,7 +31,9 @@ const [secureText, setSecureText] = useState(true);
       }
 
     } catch (error) {
+    
       Alert.alert("Error", "Something went wrong");
+        console.log("error---",error)
     } finally {
       setLoading(false);
     }
@@ -90,6 +92,8 @@ const [secureText, setSecureText] = useState(true);
     </View>
   );
 }
+
+export default LoginScreen
 
 const styles = StyleSheet.create({
   container: {

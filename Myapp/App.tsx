@@ -20,7 +20,7 @@ const theme = {
   },
 };
 
-export default function App() {
+ function App() {
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
@@ -42,3 +42,5 @@ export default function App() {
     </PaperProvider>
   );
 }
+
+export default App

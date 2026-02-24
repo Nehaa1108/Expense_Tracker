@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../utils/colors";
 
-export default function HomeScreen({ navigation }) {
+function HomeScreen({ navigation }) {
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem("token");
@@ -64,6 +64,8 @@ export default function HomeScreen({ navigation }) {
     </View>
   );
 }
+
+export default  HomeScreen
 
 const styles = StyleSheet.create({
   container: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 
-export default function StudentListScreen() {
+ function StudentListScreen() {
 
   // Temporary dummy data (we'll make it dynamic later)
   const students = [
@@ -26,6 +26,8 @@ export default function StudentListScreen() {
     </View>
   );
 }
+
+export default StudentListScreen
 
 const styles = StyleSheet.create({
   container: {
