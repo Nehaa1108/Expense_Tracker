@@ -31,7 +31,7 @@ const AttendanceScreen = ({ navigation }) => {
     applyFilters();
   }, [search, startDate, endDate, attendanceList]);
 
-  // 🔥 MOCK DATA
+  
   const loadMockData = async () => {
     setLoading(true);
 
@@ -48,7 +48,6 @@ const AttendanceScreen = ({ navigation }) => {
     }, 1500);
   };
 
-  // 🔥 Debounce Search
   const handleSearch = text => {
     setSearch(text);
 
@@ -64,14 +63,13 @@ const AttendanceScreen = ({ navigation }) => {
   const applyFilters = () => {
     let data = [...attendanceList];
 
-    // Search filter
     if (search.trim()) {
       data = data.filter(item =>
         item.studentName.toLowerCase().includes(search.toLowerCase()),
       );
     }
 
-    // Date range filter
+  
     if (startDate && endDate) {
       data = data.filter(item => {
         const itemDate = new Date(item.date);
@@ -82,11 +80,9 @@ const AttendanceScreen = ({ navigation }) => {
     setFilteredList(data);
   };
 
-  // 🔥 Stats
   const totalPresent = filteredList.filter(i => i.status === 'Present').length;
   const totalAbsent = filteredList.filter(i => i.status === 'Absent').length;
 
-  // 🔥 Animated Header
   const headerHeight = scrollY.interpolate({
     inputRange: [0, 150],
     outputRange: [120, 70],
@@ -114,7 +110,6 @@ const AttendanceScreen = ({ navigation }) => {
     </View>
   );
 
-  // 🔥 Shimmer Loader
   const renderShimmer = () => (
     <View style={styles.shimmerCard} />
   );
@@ -122,11 +117,9 @@ const AttendanceScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
 
-      {/* Animated Header */}
       <Animated.View style={[styles.header, { height: headerHeight }]}>
         <Text style={styles.title}>Attendance Dashboard</Text>
 
-        {/* Search */}
         <TextInput
           placeholder="Search student..."
           style={styles.searchInput}
@@ -134,7 +127,6 @@ const AttendanceScreen = ({ navigation }) => {
         />
       </Animated.View>
 
-      {/* Summary Stats */}
       <View style={styles.statsContainer}>
         <View style={styles.statCard}>
           <Text style={styles.statNumber}>{totalPresent}</Text>
@@ -146,7 +138,6 @@ const AttendanceScreen = ({ navigation }) => {
         </View>
       </View>
 
-      {/* List */}
       {loading ? (
         <>
           {renderShimmer()}
@@ -177,7 +168,6 @@ const AttendanceScreen = ({ navigation }) => {
         />
       )}
 
-      {/* Floating Add */}
       <TouchableOpacity
         style={styles.fab}
         onPress={() => navigation.navigate('AddAttendance')}

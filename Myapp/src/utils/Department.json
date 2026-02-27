@@ -1,0 +1,9 @@
+[
+   { "label": "Computer Application", "value": "Computer Application" }, 
+  { "label": "Computer Science", "value": "Computer Science" },
+  { "label": "Mechanical Engineering", "value": "Mechanical Engineering" },
+  { "label": "Civil Engineering", "value": "Civil Engineering" },
+  { "label": "Electrical Engineering", "value": "Electrical Engineering" },
+  { "label": "Electronics", "value": "Electronics" },
+  { "label": "Information Technology", "value": "Information Technology" }
+]
