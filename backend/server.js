@@ -17,6 +17,41 @@ app.get('/users',(req,res) =>
   res.json(DB)
 })
 
+//param
+app.get('/users/:id', (req, res) => {
+  res.send(req.params.id);
+  
+  
+console.log('req.body',req.body)
+console.log("req.header",req.headers)
+  console.log("param id",req.params.id)
+});
+
+//search query
+
+app.get('/users', (req, res) => {
+  res.send(req.query);
+
+  console.log(req.query,"-----")
+});
+
+app.get("/user",(req,res)=>
+{
+  res.json({
+    id:5,
+    name:'ghu'
+  })
+})
+// client send to server
+// req.params
+// req.query
+// req.body
+// req.headers
+
+// server send to client
+// res.send()
+// res.json()
+// res.status()
 console.log('Hello from Node!')
  console.log('Node version:', process.version) 
  console.log('Current folder:', __dirname)
@@ -65,7 +100,7 @@ function greet(name)
   console.log("name--",`${name}`)
 }
 
-greet(name)
+greet('name')
 
 app.listen(PORT,() =>
 {
