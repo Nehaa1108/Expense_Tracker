@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { Alert, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
 import RegisterHeader from "../component/RegisterHeader"
 import { useRouter } from "expo-router"
 import { useState } from "react"
@@ -34,8 +34,10 @@ const RegisterScreen=()=>
 
     const router=useRouter()
     return(
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <SafeAreaView style={styles.container}>
             <RegisterHeader/>
+            <KeyboardAvoidingView behavior={Platform.OS==="ios"?"padding":"height"}>
             <View style={styles.formContainer}>
         <Text style={styles.label}>Full Name</Text>
         <TextInput
@@ -97,7 +99,9 @@ const RegisterScreen=()=>
   </TouchableOpacity>
 
 </View>
+</KeyboardAvoidingView>
         </SafeAreaView>
+        </TouchableWithoutFeedback>
     )
 }
 export default RegisterScreen

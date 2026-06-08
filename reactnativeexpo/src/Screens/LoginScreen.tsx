@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { Alert, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
 import LoginHeader from "../component/LoginHeader"
  import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -34,8 +34,11 @@ const router = useRouter();
 
    
     return(
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={styles.container}>
             <LoginHeader/>
+            <KeyboardAvoidingView 
+            behavior={Platform.OS==="ios"? "padding" :"height"}>
             <View style={styles.formContainer}>
                <Text style={styles.label}>
   Username
@@ -107,7 +110,9 @@ const router = useRouter();
   </TouchableOpacity>
 
 </View>
+</KeyboardAvoidingView>
         </SafeAreaView>
+        </TouchableWithoutFeedback>
     )
 }
 

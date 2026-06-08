@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import ResetHeader from "../component/ResetHeader";
 import { useState } from "react";
 import { router, useRouter } from "expo-router";
@@ -18,9 +18,10 @@ const ResetScreen = () => {
   };
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <SafeAreaView style={styles.container}>
       <ResetHeader validations={checks} />
-      
+      <KeyboardAvoidingView behavior={Platform.OS==="ios"?"padding":"height"}>
       <View  style={styles.formContainer}>
         <Text style={styles.label}>New Password</Text>
         <TextInput
@@ -51,7 +52,9 @@ const ResetScreen = () => {
     Reset Password
   </Text>
 </TouchableOpacity>
+</KeyboardAvoidingView>
     </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 };
 
