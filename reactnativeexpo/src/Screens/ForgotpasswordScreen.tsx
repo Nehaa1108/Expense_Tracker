@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { Alert, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
 import ForgotHeader from "../component/ForgotHeader"
 import { useState } from "react"
 import { useRouter } from "expo-router"
@@ -28,9 +28,11 @@ const Forgotpassword=()=>
     }
 
     return(
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={styles.container}>
   <ForgotHeader />
-
+<KeyboardAvoidingView 
+ behavior={Platform.OS==='ios'? "padding": "height"}>
   <View style={styles.formContainer}>
     <Text style={styles.label}>
       Registered Email
@@ -61,7 +63,9 @@ const Forgotpassword=()=>
     </TouchableOpacity>
 
   </View>
+  </KeyboardAvoidingView>
 </SafeAreaView>
+</TouchableWithoutFeedback>
     )
 }
 

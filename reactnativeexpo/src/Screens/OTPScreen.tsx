@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, TextInput, StyleSheet} from "react-native"
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform} from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import OTPHeader from "../component/OTPHeader"
 import { useState } from "react"
@@ -9,8 +9,11 @@ const OTPScreen=()=>
     const [otp,setOTP] = useState('')
     const router= useRouter()
     return(
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <SafeAreaView style={styles.container}>
            <OTPHeader/>
+           <KeyboardAvoidingView
+           behavior={Platform.OS==="ios"? "padding" :"height"}>
            <View style={styles.formContainer}>
             <Text  style={styles.label}>Enter OTP</Text>
             <TextInput
@@ -30,7 +33,9 @@ const OTPScreen=()=>
             <Text style={styles.resendLabel}>Didn't receive it?</Text>
             <Text style={styles.resendLink}>Resend OTP</Text>
            </View>
+           </KeyboardAvoidingView>
         </SafeAreaView>
+        </TouchableWithoutFeedback>
     )
 }
 

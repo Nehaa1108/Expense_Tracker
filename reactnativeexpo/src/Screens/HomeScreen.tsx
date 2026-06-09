@@ -6,6 +6,7 @@ const HomeScreen=()=>
 {
     return(
       <SafeAreaView style={styles.container}>
+        
   <HomeHeader />
 </SafeAreaView>
     )
