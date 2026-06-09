@@ -17,6 +17,7 @@ app.get('/users',(req,res) =>
   res.json(DB)
 })
 
+
 console.log('Hello from Node!')
  console.log('Node version:', process.version) 
  console.log('Current folder:', __dirname)
@@ -28,6 +29,12 @@ console.log('Hello from Node!')
  console.log('-----------------------')
 
  const writeFile = fs.writeFileSync('note.txt','this is a note file')
+
+ const readFile = fs.readFileSync('note.txt','utf-8')
+ console.log('readFile',readFile)
+
+ const writeFileasync= fs.writeFile('note-async.txt','this is async file ')
+console.log('Async file written')
 
 app.listen(PORT,() =>
 {
