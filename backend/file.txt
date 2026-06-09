@@ -1,0 +1,49 @@
+------initiate the project
+mkdir my-backend
+cd my-backend
+npm init -y
+npm init -y 
+creates a package.json file. 
+This file tracks your project name, version, and every package you install. 
+The -y means "yes to all defaults", so it doesn't ask you questions.
+
+
+
+------install packages
+npm install express mongoose dotenv bcryptjs jsonwebtoken nodemailer cors
+npm install --save-dev nodemon
+
+------Package 
+Why we need it
+express--The web framework — handles routing, middleware, requests, responses
+mongoose--Connects to MongoDB and lets us define schemas
+dotenv--Reads your .env file so secrets never go in code
+bcryptjs--Hashes passwords — never store plain text passwords
+jsonwebtoken--Creates and verifies JWT tokens for login sessions
+nodemailer--Sends emails — for OTP and forgot password
+cors--Allows your React Native app to talk to this server
+nodemon--Restarts server automatically when you save a file (dev only)
+
+
+-----add the scripts section so you can start the server easily:
+{
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  }
+}
+
+
+
+-----Why .env? 
+These are secrets. Your database password,
+JWT secret, email password —
+if these go into your code and you push to GitHub, 
+anyone can steal them. .env keeps them out of your code.
+
+
+-----Now create .gitignore so you never accidentally commit secrets:
+node_modules
+.env
+
+

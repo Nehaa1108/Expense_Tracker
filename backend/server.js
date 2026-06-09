@@ -1,114 +1,51 @@
-const express = require('express')
+const express = require('express');  
+// express is our web framework — it handles all HTTP requests
 
-const app = express()
+const dotenv = require('dotenv');    
+// dotenv loads our .env file into process.env
 
-const {DB,add,sub} = require('./config/DB.js')
+const cors = require('cors');        
+// cors lets other origins (your React Native app) call this server
 
-const fs = require('fs')
-const PORT = 3001
+const connectDB = require('./config/DB.js')  
+// our own file that connects to MongoDB
 
+// 2. Load environment variables FIRST — before anything else
+dotenv.config();
+// After this line, process.env.PORT, process.env.MONGO_URI etc. are available
 
-app.get('/',(req,res) => {
-  res.send("hey")
-})
+// 3. Connect to database
+connectDB();
+// This runs our MongoDB connection function
 
-app.get('/users',(req,res) =>
-{
-  res.json(DB)
-})
+// 4. Create Express app
+const app = express();
+// app is our server — we add routes and middleware to it
 
+// 5. Add middleware that every request needs
+app.use(cors());
+// Allows requests from any origin — fine for development
+// In production you'd restrict to your app's URL: cors({ origin: 'https://yourapp.com' })
 
-//param
-app.get('/users/:id', (req, res) => {
-  res.send(req.params.id);
-  
-  
-console.log('req.body',req.body)
-console.log("req.header",req.headers)
-  console.log("param id",req.params.id)
+app.use(express.json());
+// Without this, req.body would be undefined
+// This tells Express to read JSON from request bodies
+
+// 6. Import and use routes
+// const authRoutes = require('./src/routes/authRoutes');
+// app.use('/api/auth', authRoutes);
+// All auth routes are at /api/auth/...
+// So POST /api/auth/login, POST /api/auth/signup etc.
+
+// 7. Root route — just to test server is running
+app.get('/', (req, res) => {
+  res.json({ message: 'Server is running' });
 });
 
-//search query
+// 8. Start listening
+const PORT = process.env.PORT || 5000;
+// process.env.PORT comes from .env — if not found, use 5000 as fallback
 
-app.get('/users', (req, res) => {
-  res.send(req.query);
-
-  console.log(req.query,"-----")
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
-
-app.get("/user",(req,res)=>
-{
-  res.json({
-    id:5,
-    name:'ghu'
-  })
-})
-// client send to server
-// req.params
-// req.query
-// req.body
-// req.headers
-
-// server send to client
-// res.send()
-// res.json()
-// res.status()
-console.log('Hello from Node!')
- console.log('Node version:', process.version) 
- console.log('Current folder:', __dirname)
-
- console.log("-----------------------")
- console.log(add(3,5))
- console.log(sub(10,4))
-
- console.log('-----------------------')
-
- const writeFile = fs.writeFileSync('note.txt','this is a note file')
-
- const readFile = fs.readFileSync('note.txt','utf-8')
- console.log('readFile',readFile)
-
- const writeFileasync= fs.writeFile('note-async.txt','this is async file ')
-console.log('Async file written')
- const writeFile1 = fs.writeFileSync('notes.txt',`"$this is sync file message
-
- <h1>this is heading file</h1>
-  "`)
-
-  const readFile = fs.readFile('note.txt','utf8',(err,data)=>
-  {
-    if(err)
-    {
-      console.log('err',err)
-      return
-    }
-    const datastorage = data
-    console.log('data',datastorage)
-  }
-  )
-// async use callbakc 
-// sync dont use callback
-
-try{
- const readFile1 = fs.readFileSync('notes.txt','utf8')
- console.log(readFile1)
-}
-catch(err)
-{
-  console.log("err",err)
-}
- 
-
-var name = 'john'
-
-function greet(name)
-{
-  console.log("name--",`${name}`)
-}
-
-greet('name')
-
-app.listen(PORT,() =>
-{
-  console.log('Server running on port ' ,`"${PORT}"`)
-})
