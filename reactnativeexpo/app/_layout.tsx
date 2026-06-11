@@ -1,11 +1,8 @@
 import { Stack } from "expo-router";
-// import {Provider} from "react-redux"
-// import {store} from "../src/app/Store"
-// import Toast from "react-native-toast-message";
 
 export default function RootLayout() {
   return (
-    // <Provider store={store}>
+  
     <Stack>
       <Stack.Screen
         name="index"
@@ -32,7 +29,6 @@ export default function RootLayout() {
       options={{title:"Reset Success"}}
       />
     </Stack>
-    // <Toast/>
-    // </Provider>
+
   );
 }

@@ -6,8 +6,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const Login = ()=>
 {
-
-   
 const router = useRouter();
 
     const [formData,setFormData] = useState({
