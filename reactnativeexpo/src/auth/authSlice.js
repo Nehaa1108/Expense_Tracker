@@ -5,6 +5,7 @@ const initialState = {
   isLoggedIn: false,
   forgotEmail: "",
   otpVerified: false,
+   registeredUser: null,
 };
 
 const authSlice = createSlice({
@@ -33,9 +34,12 @@ const authSlice = createSlice({
       state.forgotEmail = "";
       state.otpVerified = false;
     },
+      registerUser: (state, action) => {
+      state.registeredUser = action.payload;
+    },
   },
 });
 
-export const { login, logout, forgot, otp, resetAuthFlow } = authSlice.actions;
+export const { login, logout, forgot, otp, resetAuthFlow, registerUser } = authSlice.actions;
 
 export default authSlice.reducer;

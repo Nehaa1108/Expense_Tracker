@@ -1,13 +1,14 @@
-import { Alert, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
+import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
 import RegisterHeader from "../component/RegisterHeader"
 import { useRouter } from "expo-router"
 import { useState } from "react"
 import { SafeAreaView } from "react-native-safe-area-context"
-
+import { useDispatch } from "react-redux";
+import { registerUser } from "../auth/authSlice";
 const RegisterScreen=()=>
 {
 
-   
+   const dispatch = useDispatch();
     const [formData,setFormData]=useState({
         fullname:'',
         email:'',
@@ -15,29 +16,57 @@ const RegisterScreen=()=>
         confirmPassword:''
     })
 
-    const handleSubmit=()=>
-    {
-     try{
-        if(!formData.fullname || !formData.email || !formData.password ||!formData.confirmPassword)
-        {
-            Alert.alert("Fill all required fields")
-            return;
-        }
-
-        router.push('/')
-     }
-     catch(err){
-        Alert.alert("Something went wrong")
-        console.log("err",err)
-     }
+   const handleSubmit = () => {
+  try {
+    if (
+      !formData.fullname ||
+      !formData.email ||
+      !formData.password ||
+      !formData.confirmPassword
+    ) {
+      Alert.alert("Fill all required fields");
+      return;
     }
+
+    if (
+      formData.password !==
+      formData.confirmPassword
+    ) {
+      Alert.alert("Passwords do not match");
+      return;
+    }
+
+    dispatch(
+      registerUser({
+        fullname: formData.fullname,
+        email: formData.email,
+      })
+    );
+
+    setFormData({
+      fullname: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
+
+    router.push("/");
+  } catch (err) {
+    Alert.alert("Something went wrong");
+    console.log(err);
+  }
+};
 
     const router=useRouter()
     return(
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <SafeAreaView style={styles.container}>
-            <RegisterHeader/>
+           
             <KeyboardAvoidingView behavior={Platform.OS==="ios"?"padding":"height"}>
+              <ScrollView
+              contentContainerStyle={{flexGrow:1,paddingBottom:25}}
+              keyboardShouldPersistTaps={"handled"}>
+                 <RegisterHeader/>
             <View style={styles.formContainer}>
         <Text style={styles.label}>Full Name</Text>
         <TextInput
@@ -99,6 +128,7 @@ const RegisterScreen=()=>
   </TouchableOpacity>
 
 </View>
+</ScrollView>
 </KeyboardAvoidingView>
         </SafeAreaView>
         </TouchableWithoutFeedback>
