@@ -1,8 +1,10 @@
-import { Alert, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
+import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
 import ForgotHeader from "../component/ForgotHeader"
 import { useState } from "react"
 import { useRouter } from "expo-router"
 import { SafeAreaView } from "react-native-safe-area-context"
+import { useDispatch } from "react-redux"
+import { forgot } from "../auth/authSlice"
 
 const Forgotpassword=()=>
 {
@@ -10,6 +12,8 @@ const Forgotpassword=()=>
 
     const router=useRouter()
 
+    const dispatch = useDispatch()
+    
     const handleSubmit=()=>
     {
         try{
@@ -18,7 +22,11 @@ const Forgotpassword=()=>
                 Alert.alert("Enter your register email")
                 return;
             }
-            router.push("/")
+            dispatch(
+              forgot(email)
+            )
+            setEmail('')
+            router.push("/otp")
         }
         catch(err)
         {
@@ -30,9 +38,14 @@ const Forgotpassword=()=>
     return(
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={styles.container}>
-  <ForgotHeader />
+  
 <KeyboardAvoidingView 
  behavior={Platform.OS==='ios'? "padding": "height"}>
+   <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+      >
+        <ForgotHeader />
   <View style={styles.formContainer}>
     <Text style={styles.label}>
       Registered Email
@@ -42,15 +55,16 @@ const Forgotpassword=()=>
       style={styles.input}
       placeholder="Enter your email"
       placeholderTextColor={'#94A3B8'}
-      value={'email'}
+      value={email}
       onChangeText={(val) => setEmail(val)}
     />
   </View>
-
+  </ScrollView>
+ </KeyboardAvoidingView>
   <View style={styles.buttonContainer}>
 
     <TouchableOpacity style={styles.primaryButton}
-    onPress={()=>router.push('/otp')}>
+    onPress={handleSubmit}>
       <Text style={styles.primaryButtonText}>
         Send OTP
       </Text>
@@ -63,7 +77,7 @@ const Forgotpassword=()=>
     </TouchableOpacity>
 
   </View>
-  </KeyboardAvoidingView>
+ 
 </SafeAreaView>
 </TouchableWithoutFeedback>
     )
@@ -80,7 +94,7 @@ const styles = StyleSheet.create({
   },
 
   formContainer: {
-    marginTop: 2,
+    marginTop: 20,
   },
 
   label: {

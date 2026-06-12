@@ -1,38 +1,112 @@
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform} from "react-native"
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform, ScrollView, Alert} from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import OTPHeader from "../component/OTPHeader"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { router, useRouter } from "expo-router"
 import { SafeAreaView } from "react-native-safe-area-context"
+  import { useDispatch, useSelector } from "react-redux";
+  import { otp } from "../auth/authSlice"
 const OTPScreen=()=>
 {
+const dispatch = useDispatch();
+
     const [otp,setOTP] = useState('')
+const [timer, setTimer] = useState(60);
+const [canResend, setCanResend] = useState(false);
     const router= useRouter()
+
+    useEffect(() => {
+  if (timer === 0) {
+    setCanResend(true);
+    return;
+  }
+
+  const interval = setInterval(() => {
+    setTimer(prev => prev - 1);
+  }, 1000);
+
+  return () => clearInterval(interval);
+}, [timer]);
+
+const handleResendOTP = () => {
+  setTimer(60);
+  setCanResend(false);
+
+  console.log("New OTP sent");
+};
+
+
+const handleVerifyOTP = () => {
+  if (!otp) {
+    Alert.alert("Please enter OTP");
+    return;
+  }
+
+  if (otp.length !== 6) {
+    Alert.alert("OTP must be 6 digits");
+    return;
+  }
+
+  // otp imported from authSlice is a string action type, dispatch an action object
+  dispatch({ type: otp });
+
+  setOTP("");
+
+  router.push("/reset");
+};
     return(
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <SafeAreaView style={styles.container}>
-           <OTPHeader/>
+          
            <KeyboardAvoidingView
            behavior={Platform.OS==="ios"? "padding" :"height"}>
+            <ScrollView 
+            contentContainerStyle={{flexGrow:1}}
+            keyboardShouldPersistTaps={'handled'}
+            >
+               <OTPHeader/>
            <View style={styles.formContainer}>
+            
+           
             <Text  style={styles.label}>Enter OTP</Text>
             <TextInput
             style={styles.input}
             placeholder="Enter your OTP"
             placeholderTextColor={"grey"}
-            value="otp"
+            value={otp}
             onChangeText={(val)=>setOTP(val)}
+            keyboardType="numeric"
+            maxLength={6}
             />
-            <Text style={styles.timerText}>OTP expires in 00:59</Text>
+           
+            <Text style={styles.timerText}>
+  OTP expires in 00:{timer.toString().padStart(2, '0')}
+</Text>
            </View>
            <TouchableOpacity style={styles.primaryButton}
-           onPress={()=>router.push('/reset')}>
+           onPress={handleVerifyOTP}>
             <Text style={styles.primaryButtonText}>Verify OTP</Text>
            </TouchableOpacity>
            <View style={styles.resendContainer}>
             <Text style={styles.resendLabel}>Didn't receive it?</Text>
-            <Text style={styles.resendLink}>Resend OTP</Text>
+            
+            <TouchableOpacity
+  disabled={!canResend}
+  onPress={handleResendOTP}
+>
+  <Text
+    style={[
+      styles.resendLink,
+      {
+        opacity: canResend ? 1 : 0.5,
+      },
+    ]}
+  >
+    Resend OTP
+  </Text>
+</TouchableOpacity>
            </View>
+           </ScrollView>
            </KeyboardAvoidingView>
         </SafeAreaView>
         </TouchableWithoutFeedback>
@@ -50,7 +124,23 @@ const styles = StyleSheet.create({
   },
 
   formContainer: {
-    marginTop: 0,
+    marginTop:20,
+  },
+
+  optcontainer:{
+    backgroundColor:'#fff',
+    borderRadius:20,
+    borderWidth:0.1,
+    marginBottom:12
+  },
+
+  otpmail:{
+    paddingTop:10,
+    paddingBottom:12,
+    marginLeft:15
+  },
+  mailtext:{
+    color:'grey'
   },
 
   label: {
@@ -73,7 +163,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
 
     fontSize: 18,
-    letterSpacing: 4,
+    letterSpacing: 0,
 
     shadowColor: '#000',
     shadowOffset: {

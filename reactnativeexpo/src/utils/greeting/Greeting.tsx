@@ -1,8 +1,8 @@
 export function greeting() {
-  const date = new Date(); // Current date and time
+  const date = new Date(); 
   const timeZone = 'Asia/Kolkata';
   date.toLocaleString();
-  // date.toLocaleString('en-US', {timeZone});
+  
   const hour = date.getHours();
 
   if (hour >= 0 && hour < 12) {

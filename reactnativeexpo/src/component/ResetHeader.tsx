@@ -87,19 +87,19 @@ const styles = StyleSheet.create({
   },
 
   headerContainer: {
-    marginBottom: 10,
+    marginBottom: 4,
   },
 
   icon: {
     fontSize: 52,
-    marginBottom: 12,
+    marginBottom: 2,
   },
 
   title: {
     fontSize: 30,
     fontWeight: '700',
     color: '#0F172A',
-    marginBottom: 10,
+    marginBottom: 4,
   },
 
   description: {
@@ -131,13 +131,13 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#0F172A',
 
-    marginBottom: 16,
+    marginBottom: 4,
   },
 
   requirementItem: {
     fontSize: 15,
     color: '#475569',
-    marginBottom: 10,
+    marginBottom: 4,
   },
 
 });

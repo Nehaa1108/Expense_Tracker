@@ -1,9 +1,14 @@
 import { View, Text, TouchableOpacity, StyleSheet} from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { SafeAreaView } from "react-native-safe-area-context"
+import { useSelector } from "react-redux"
 const OTPHeader=()=>
 {
    const navigation=useNavigation()
+
+   const email = useSelector(
+     (state: any) => state.auth.forgotEmail
+   );
 
     return(
         <View style={styles.container}>
@@ -28,7 +33,10 @@ const OTPHeader=()=>
     </Text>
 
     <Text style={styles.description}>
-      We sent a 6-digit OTP to your registered email address.
+      We sent a 6-digit OTP to your registered email address- 
+       <Text style={styles.mailtext}>{email}</Text> 
+     
+                  
     </Text>
 
   </View>
@@ -91,7 +99,9 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     textAlign: 'center',
   },
-
+mailtext:{
+color:'black'
+},
   description: {
     fontSize: 15,
     lineHeight: 24,

@@ -3,15 +3,21 @@ import { Alert, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, Text
 import LoginHeader from "../component/LoginHeader"
  import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-
+import { useDispatch } from "react-redux";
+import { login } from "../auth/authSlice";
+import { reload } from "expo-router/build/global-state/routing";
 const Login = ()=>
 {
+
+  const dispatch = useDispatch()
 const router = useRouter();
 
     const [formData,setFormData] = useState({
         username:'',
         password:''
     })
+
+    
 
     const handleSubmit=()=>
     {
@@ -21,7 +27,19 @@ const router = useRouter();
                 Alert.alert("Fill all required fields")
                 return;
             }
+            dispatch(
+              login({
+                username:formData.username
+              })
+            )
+            console.log("dispatch",formData.username)
+
+            setFormData({
+              username:'',
+              password:''
+            })
             router.push('/home')
+           
         }
         catch(err)
         {

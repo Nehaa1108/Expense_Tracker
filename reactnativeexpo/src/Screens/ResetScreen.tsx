@@ -1,13 +1,14 @@
-import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import ResetHeader from "../component/ResetHeader";
 import { useState } from "react";
 import { router, useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-
+import {resetAuthFlow} from '../auth/authSlice'
+import { useDispatch } from "react-redux";
 const ResetScreen = () => {
   const [password, setPassword] = useState('');
   const [confirmpw,setConfirmpw]=useState('')
-
+ const dispatch = useDispatch()
   const router= useRouter()
   
   const checks = {
@@ -17,11 +18,49 @@ const ResetScreen = () => {
     special: /[!@#\$]/.test(password) && /[!@#\$]/.test(confirmpw),
   };
 
+  
+
+  const passwordsMatch =
+  password === confirmpw && password.length > 0;
+
+  const handleResetPassword = () => {
+  if (!password || !confirmpw) {
+    Alert.alert("Please fill all fields");
+    return;
+  }
+
+  if (!passwordsMatch) {
+    Alert.alert("Passwords do not match");
+    return;
+  }
+
+  if (
+    !checks.length ||
+    !checks.uppercase ||
+    !checks.number ||
+    !checks.special
+  ) {
+    Alert.alert("Password does not meet requirements");
+    return;
+  }
+
+  dispatch(resetAuthFlow());
+
+router.push("/resetsuccess");
+
+};
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <SafeAreaView style={styles.container}>
-      <ResetHeader validations={checks} />
-      <KeyboardAvoidingView behavior={Platform.OS==="ios"?"padding":"height"}>
+     
+      <KeyboardAvoidingView
+      style={{flex:1}}
+       behavior={Platform.OS==="ios"?"padding":"height"}>
+        <ScrollView 
+        contentContainerStyle={{flexGrow:1,  paddingBottom: 40,}}
+        keyboardShouldPersistTaps={"handled"}>
+           <ResetHeader validations={checks} />
       <View  style={styles.formContainer}>
         <Text style={styles.label}>New Password</Text>
         <TextInput
@@ -43,15 +82,21 @@ const ResetScreen = () => {
           secureTextEntry={true}
         
         />
+        {confirmpw.length > 0 && !passwordsMatch && (
+  <Text style={styles.errorText}>
+    Passwords do not match
+  </Text>
+)}
       </View>
       <TouchableOpacity
   style={styles.primaryButton}
-  onPress={() => router.push('/resetsuccess')}
+  onPress={handleResetPassword}
 >
   <Text style={styles.primaryButtonText}>
     Reset Password
   </Text>
 </TouchableOpacity>
+</ScrollView>
 </KeyboardAvoidingView>
     </SafeAreaView>
     </TouchableWithoutFeedback>
@@ -125,5 +170,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
   },
+  errorText: {
+  color: "red",
+  marginTop: 6,
+  fontSize: 13,
+},
 
 });

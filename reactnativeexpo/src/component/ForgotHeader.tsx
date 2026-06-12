@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: '#2563EB',
     fontWeight: '600',
-    marginBottom: 40,
+    marginBottom: 20,
   },
 
   contentContainer: {
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
 
   icon: {
     fontSize: 64,
-    marginBottom: 20,
+    marginBottom: 10,
   },
 
   title: {

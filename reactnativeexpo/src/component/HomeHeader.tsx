@@ -1,9 +1,14 @@
 import { StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context";
 import { greeting } from "../utils/greeting/Greeting";
-
+import { useSelector } from "react-redux";
 const HomeHeader=()=>
 {
+  const user = useSelector(
+  (state: any) => state.auth.user
+);
+
+console.log(user);
     return(
            <View style={styles.container}>
 
@@ -13,7 +18,7 @@ const HomeHeader=()=>
     </Text>
 
     <Text style={styles.subTitle}>
-      Welcome back
+      Welcome back {user?.username} 
     </Text>
   </View>
 
