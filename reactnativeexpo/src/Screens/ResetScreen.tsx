@@ -43,6 +43,8 @@ const ResetScreen = () => {
     Alert.alert("Password does not meet requirements");
     return;
   }
+setPassword('')
+setConfirmpw('')
 
   dispatch(resetAuthFlow());
 
