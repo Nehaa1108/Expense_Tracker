@@ -107,6 +107,6 @@ password:{
 }
 })
 
-const UserModal = mongoose.Model("users",userSchema)
+const UserModal = mongoose.model("users",userSchema)
 
-export default userSchema
+export default UserModal

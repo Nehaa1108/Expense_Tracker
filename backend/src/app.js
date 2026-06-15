@@ -1,6 +1,6 @@
 import express from 'express'
 import morgan from 'morgan'
-import authRouter from './route/AuthRoute'
+import authRouter from './route/AuthRoute.js'
 
 const app = express()
 

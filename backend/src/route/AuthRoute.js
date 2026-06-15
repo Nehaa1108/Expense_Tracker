@@ -28,9 +28,9 @@
 // module.exports = router;
 
 import {Router} from "express"
-
+import * as authController from "../controllers/AuthController.js"
 const authRouter = Router()
 
-authRouter.get("")
+authRouter.post("/register",authController.register)
 
 export default authRouter
