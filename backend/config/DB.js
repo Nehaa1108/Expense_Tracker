@@ -32,6 +32,11 @@ const connectDB = async() =>
       throw new Error("MONGO_URL is not defined in environment variable")
       return 
     }
+
+    if(!process.env.JWT_SECRET)
+    {
+      throw new Error("JWT_SECRET is not defined in environment variable")
+    }
     else{
        const con = await mongoose.connect(process.env.MONGO_URI)
 

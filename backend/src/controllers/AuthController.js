@@ -155,8 +155,11 @@
 import UserModal from "../modals/User.js"
 import bcrypt from "bcrypt";
 
-
+//after finding or creating user & password hash , now we will work on jwt
 import jwt from 'jsonwebtoken'
+
+import connectDB from "../../config/DB.js";
+
 //complete logic here , then export to router page
 export async function register(req, res) {
   try {
@@ -180,17 +183,39 @@ export async function register(req, res) {
       //store password in hash 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    //user register if not existing
     const user = await UserModal.create({
       username,
       email,
       password: hashedPassword,
     });
 
+
+    //after importing db , now creating token
+    const token = jwt.sign(
+      {
+        id: user._id,
+        email: user.email,                                                                                                                                 
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1d",
+      }
+    );
+
+
     return res.status(201).json({
       success: true,
       message: "User registered successfully",
-      user,
+        token,
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+      },
     });
+
+    
   } 
   catch (error) {
     console.log(error);
@@ -202,5 +227,8 @@ export async function register(req, res) {
   }
 }
 
-export default register;
-//massgraf
+export async function getMe(req,res)
+{
+  //logic - inside server , which user send request, identify it, with token , all user have taken with it
+  const token = req.headers.Authorization?.split(" ")[1]  
+}

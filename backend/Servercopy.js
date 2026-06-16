@@ -112,3 +112,16 @@ app.listen(PORT,() =>
 {
   console.log('Server running on port ' ,`"${PORT}"`)
 })
+
+
+
+//api using thunder ---
+
+//register
+// post-- http:localhost:5000/api/auth/register
+//body ---json----{username,email,password}
+
+//getMe
+//getMe--http:localhost:5000/api/auth/get-me
+// header-- key-Authenticatio ,  value -Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMzBmNDg3Nzc5MGYwMjQ3ZTg1ZjE1NSIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJpYXQiOjE3ODE1OTMyMjQsImV4cCI6MTc4MTY3OTYyNH0.hL26xkzpUX_08ra9J67F3HXZGL_8c3AmgwuURmE4GPA
+
