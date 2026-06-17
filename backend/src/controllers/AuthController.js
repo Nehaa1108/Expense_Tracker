@@ -199,7 +199,8 @@ export async function register(req, res) {
       },
       process.env.JWT_SECRET,
       {
-        expiresIn: "1d",
+        expiresIn: process.env.JWT_EXPIRE
+        // "1d",
       }
     );
 
@@ -214,8 +215,6 @@ export async function register(req, res) {
         email: user.email,
       },
     });
-
-    
   } 
   catch (error) {
     console.log(error);
@@ -229,6 +228,21 @@ export async function register(req, res) {
 
 export async function getMe(req,res)
 {
-  //logic - inside server , which user send request, identify it, with token , all user have taken with it
-  const token = req.headers.Authorization?.split(" ")[1]  
+  //logic - inside server , which user send request, identify it, with token , all user have token with it
+  const token = req.headers.authorization?.split(" ")[1]  
+
+  console.log("req header",req.headers)
+
+  //check user have token or not
+  if(!token)
+  {
+    return res.status(401).json({
+      message:"token not found"
+    })
+  }
+
+  //read token--inside have data 
+  const decorded = jwt.verify(token,process.env.JWT_SECRET)
+  console.log("decorded",decorded)
+
 }
