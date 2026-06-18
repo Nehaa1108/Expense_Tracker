@@ -4,5 +4,7 @@ node_modules
 
 .env
 backend/.env
-reactnative/.env
+backend/node_modules
+reactnativeexpo/.env
+reactnativeexpo/node_modules
 *.env
