@@ -8,6 +8,7 @@ import { registerUser } from "../auth/authSlice";
 const RegisterScreen=()=>
 {
 
+  const router=useRouter()
    const dispatch = useDispatch();
     const [formData,setFormData]=useState({
         fullname:'',
@@ -40,6 +41,8 @@ const RegisterScreen=()=>
       registerUser({
         fullname: formData.fullname,
         email: formData.email,
+        password:formData.password,
+        confirmPassword:formData.confirmPassword
       })
     );
 
@@ -57,7 +60,6 @@ const RegisterScreen=()=>
   }
 };
 
-    const router=useRouter()
     return(
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <SafeAreaView style={styles.container}>
