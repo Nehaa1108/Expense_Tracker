@@ -2,11 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: null,
-  email:"",
+  registeredUser: null,
   isLoggedIn: false,
   forgotEmail: "",
   otpVerified: false,
-   registeredUser: null,
 };
 
 const authSlice = createSlice({
@@ -16,7 +15,7 @@ const authSlice = createSlice({
   reducers: {
     login: (state, action) => {
       state.user = action.payload;
-      state.email = action.payload
+      state.registeredUser = action.payload
       state.isLoggedIn = true;
     },
 
@@ -32,16 +31,25 @@ const authSlice = createSlice({
     otp: (state) => {
       state.otpVerified = true;
     },
-     resetAuthFlow: (state) => {
+
+    resetAuthFlow: (state) => {
       state.forgotEmail = "";
       state.otpVerified = false;
     },
-      registerUser: (state, action) => {
+
+    registerUser: (state, action) => {
       state.registeredUser = action.payload;
     },
   },
 });
 
-export const { login, logout, forgot, otp, resetAuthFlow, registerUser } = authSlice.actions;
+export const {
+  login,
+  logout,
+  forgot,
+  otp,
+  resetAuthFlow,
+  registerUser,
+} = authSlice.actions;
 
 export default authSlice.reducer;

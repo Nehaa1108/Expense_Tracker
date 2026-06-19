@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Text, TextInput, TouchableOpacity, View } from "react-native"
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
 
 const EditProfile = () =>
 {
@@ -7,33 +7,103 @@ const EditProfile = () =>
     const [update,setUpdate] = useState('')
 
     const [formData,setFormData] = useState({
-        
+        username:'',
+        email:'',
+        password:''
     })
 
     return (
-        <View>
-            <View>
-                <Text>Edit Profile</Text>
-            </View>
-            <View>
-                <TextInput 
-                placeholder="Username"
-                placeholderTextColor={'grey'}
+       <View style={styles.container}>
+  <View>
+    <Text style={styles.heading}>Edit Profile</Text>
+  </View>
 
-                />
-                <TextInput 
-                placeholder="Email"
-                placeholderTextColor={'grey'}
-                />
-            </View>
-            <View>
-                <TouchableOpacity>
-                 
-                 <Text>{update? 'Update' : 'Add'}</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
+  <View style={styles.formContainer}>
+    <TextInput
+      style={styles.input}
+      placeholder="Username"
+      placeholderTextColor="grey"
+      value={formData.username}
+      onChangeText={(item) =>
+        setFormData({
+          ...formData,
+          username: item,
+        })
+      }
+    />
+
+    <TextInput
+      style={styles.input}
+      placeholder="Email"
+      placeholderTextColor="grey"
+      value={formData.email}
+      onChangeText={(item) =>
+        setFormData({
+          ...formData,
+          email: item,
+        })
+      }
+    />
+
+    <TextInput
+      style={styles.input}
+      placeholder="Password"
+      placeholderTextColor="grey"
+      secureTextEntry
+    />
+  </View>
+
+  <TouchableOpacity style={styles.button}>
+    <Text style={styles.buttonText}>
+      {update ? "Update" : "Add"}
+    </Text>
+  </TouchableOpacity>
+</View>
     )
 }
 
 export default EditProfile
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    marginTop: 20,
+  },
+
+  heading: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 25,
+    color: "#222",
+  },
+
+  formContainer: {
+    gap: 15,
+  },
+
+  input: {
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderRadius: 12,
+    paddingHorizontal: 15,
+    height: 55,
+    fontSize: 16,
+    backgroundColor: "#fff",
+  },
+
+  button: {
+    marginTop: 25,
+    backgroundColor: "#2563EB",
+    height: 55,
+    borderRadius: 12,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+});

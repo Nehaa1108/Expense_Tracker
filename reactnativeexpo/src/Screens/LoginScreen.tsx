@@ -3,19 +3,24 @@ import { Alert, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, Text
 import LoginHeader from "../component/LoginHeader"
  import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../auth/authSlice";
 import { reload } from "expo-router/build/global-state/routing";
-const Login = ()=>
+      const Login = ()=>
 {
 
-  const dispatch = useDispatch()
-const router = useRouter();
+      const dispatch = useDispatch()
+      const router = useRouter();
 
-    const [formData,setFormData] = useState({
+      const registeredUser = useSelector(
+        (state:any) => state.auth.registeredUser
+        );
+
+      const [formData,setFormData] = useState({
         username:'',
-        password:''
-    })
+        password:'',
+        email:''
+      })
 
     
 
@@ -30,13 +35,15 @@ const router = useRouter();
             dispatch(
               login({
                 username:formData.username,
+                 email: registeredUser?.email,
               })
             )
             console.log("dispatch",formData.username)
 
             setFormData({
               username:'',
-              password:''
+              password:'',
+              email:''
             })
             router.push('/home')
            
@@ -69,7 +76,21 @@ const router = useRouter();
                     username:val
                 })}
                 />
-                <Text style={styles.label}>Password</Text>
+                <Text style={styles.label}>Email</Text>
+                 <TextInput
+                 style={styles.input}
+                placeholder="Enter Email"
+                placeholderTextColor={"grey"}
+                value={formData.email}
+                onChangeText={(val)=>
+                setFormData({
+                    ...formData,
+                    email:val
+                })
+                }
+                />
+
+                 <Text style={styles.label}>Password</Text>
                  <TextInput
                  style={styles.input}
                 placeholder="Enter Password"
@@ -82,6 +103,7 @@ const router = useRouter();
                 })
                 }
                 />
+
             </View>
             <View>
                 <TouchableOpacity

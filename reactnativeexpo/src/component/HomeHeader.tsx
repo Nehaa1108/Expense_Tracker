@@ -18,7 +18,8 @@ console.log(user);
     </Text>
 
     <Text style={styles.subTitle}>
-      Welcome back {user?.username} 
+      Welcome back {" "}
+      <Text style={{color:'black'}}>{user?.username} </Text>
     </Text>
   </View>
 
