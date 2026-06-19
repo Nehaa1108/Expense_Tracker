@@ -52,12 +52,21 @@ export async function register(req, res) {
     );
 
     const refreshtoken = jwt.sign({
-      if: user._id
+      id: user._id
     },
   process.env.JWT_SECRET,
 {
   expiresIn: "7d"
 })
+
+//add cookieparser for refersh token
+
+    res.cookie("refreshtoken", refreshtoken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
+    });
 
     return res.status(201).json({
       success: true,
@@ -99,10 +108,10 @@ export async function getMe(req,res)
 
   // iat--initialise at(when token created)
 // decorded {
-//   id: '6a34e29b2ad3bf36a77db69f',
+//   id: '6a2ad3f',
 //   email: 'test2@gmail.com',
-//   iat: 1781850779,
-//   exp: 1781937179
+//   iat: 10779,
+//   exp: 17879
 // }
 
 
