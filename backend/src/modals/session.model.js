@@ -18,5 +18,17 @@ const sessionSchema= new mongoose.Schema({
     userAgent:{
         type:String,
         required:[true,"User agent is required"]
-    }
+    },
+    revoked:{
+        type:Boolean,
+        default:false
+    },
+    
+},
+{
+    timestamps:true
 })
+
+const sessionModel = mongoose.model("sessions",sessionScheme)
+
+export default sessionModel

@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken'
 
 import connectDB from "../../config/DB.js";
-
+import sessionModel from "../modals/session.model.js";
 //complete logic here , then export to router page
 export async function register(req, res) {
   try {
@@ -40,10 +40,34 @@ export async function register(req, res) {
     //after importing db , now creating token
     //after decoded token replace with access and refresh
     //access token
+
+        const refreshtoken = jwt.sign({
+      id: user._id
+    },
+  process.env.JWT_SECRET,
+{
+  expiresIn: "7d"
+})
+
+//refresh token then session then access token
+
+
+//leter add session ,for logout 
+
+const refreshTokenHash = crypto.createHash("sha256".update(refreshToken).digest("hex"))
+
+const session = await sessionModel.create({
+  user: user._id,
+  refreshTokenHash,
+  ip:req.ip,
+  userAgent:req.headers["user-agent"]
+})
+
     const accesstoken = jwt.sign(
       {
         id: user._id,
-        email: user.email,                                                                                                                                 
+        email: user.email,   
+        sessionId:session._id                                                                                                                              
       },
       process.env.JWT_SECRET,
       {
@@ -51,13 +75,7 @@ export async function register(req, res) {
       }
     );
 
-    const refreshtoken = jwt.sign({
-      id: user._id
-    },
-  process.env.JWT_SECRET,
-{
-  expiresIn: "7d"
-})
+
 
 //add cookieparser for refersh token
 
