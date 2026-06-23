@@ -184,6 +184,10 @@ res.status(200).json({
 })
 }
 
-
+//logout from all devices
 //acees token 10 min, refresh token 15d, 
 // access  token use for authenticate user - which user give request
+//logout from all devices
+//all device have session - {user id, refresh tokenHash,ip,userAgent,createdAt,updatedAt,revoke}
+
+// models--->sessions.model
