@@ -143,3 +143,47 @@ export async function getMe(req,res)
   //access token time is 15mins max
   // refresh token , 7days , 15 days , and days
 }
+
+//with refresh token -/api/auth/get-me , it can generate new access token 
+export async function refreshToken(req,res){
+  const refreshToken = req.cookies.refreshToken
+
+  //if inside cookies refresh token not present then return this
+  if(!refreshToken){
+    return res.status(401).json({
+      message:"Refresh token not found"
+    })
+  }
+
+// if cookies have refresh token 
+const decorded = jwt.verify(refreshToken, process.env.JWT_SECRET)
+
+const accessToken = jwt.sign({
+  id:decorded.id
+},
+process.env.JWT_SECRET,{
+  expiresIn:"15m"
+}
+)
+
+//refresh token new
+const newRefreshToken = jwt.sign({
+  id:decorded.id
+},process.env.JWT_SECRET,{
+  expiresIn:"7d"
+})
+
+res.cookie("refreshToken",newRefreshToken,{
+  httpOnly:true,
+  secure:true,
+  sameSite:"strict",
+  maxAge:7*24*60*60*1000})
+
+res.status(200).json({
+  message:"Access token refreshed successfully"
+})
+}
+
+
+//acees token 10 min, refresh token 15d, 
+// access  token use for authenticate user - which user give request

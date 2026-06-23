@@ -7,5 +7,6 @@ authRouter.post("/register",authController.register)
 //user identift , which user send details
 authRouter.get("/get-me",authController.getMe)
 
+authRouter.get("/refresh-token",authController.refreshToken)
 
 export default authRouter
