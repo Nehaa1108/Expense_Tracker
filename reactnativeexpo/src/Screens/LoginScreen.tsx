@@ -45,7 +45,8 @@ import { reload } from "expo-router/build/global-state/routing";
               password:'',
               email:''
             })
-            router.push('/home')
+            // router.push('/home')
+            router.replace('/(tabs)/home')
            
         }
         catch(err)

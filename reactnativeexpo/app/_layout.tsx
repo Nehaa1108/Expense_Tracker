@@ -9,6 +9,7 @@ export default function RootLayout() {
         name="index"
         options={{ title: "Login" }}
       />
+      
       <Stack.Screen
         name="forgot"
         options={{ title: "Forgot Password" }}
@@ -17,10 +18,10 @@ export default function RootLayout() {
       name="register"
       options={{title:"Register"}}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
       name="home"
       options={{title:"Home"}}
-      />
+      /> */}
       <Stack.Screen
       name="reset"
       options={{title:"Reset Password"}}
@@ -29,6 +30,10 @@ export default function RootLayout() {
       name="resetsuccess"
       options={{title:"Reset Success"}}
       />
+        <Stack.Screen
+    name="(tabs)"
+    options={{ headerShown: false }}
+  />
     </Stack>
 </Provider>
   );

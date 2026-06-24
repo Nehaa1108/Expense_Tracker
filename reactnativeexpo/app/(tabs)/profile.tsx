@@ -5,7 +5,8 @@ import {
   View,
 } from "react-native";
 import { useSelector } from "react-redux";
-import EditProfile from "../component/EditProfile";
+import EditProfile from "../../src/component/EditProfile"
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const ProfileScreen = () => {
   const user = useSelector(
@@ -18,20 +19,19 @@ const ProfileScreen = () => {
 );
 
   return (
-    <View style={styles.container}>
-      <View style={styles.profileCard}>
+    <SafeAreaView>
+    <View 
+    // style={styles.container}
+    >
+      {/* <View style={styles.profileCard}>
         <View style={styles.avatar}>
           <Text style={styles.avatarText}>
             {user?.username?.charAt(0)?.toUpperCase()}
           </Text>
         </View>
 
-        <Text style={styles.userName}>
-          {user?.username}
-        </Text>
-
         <Text style={styles.email}>
-          {registeredUser?.email}
+          {registeredUser?.email}h
         </Text>
         <Text>{user?.email}</Text>
       </View>
@@ -40,10 +40,11 @@ const ProfileScreen = () => {
         <Text style={styles.accountTitle}>
           ACCOUNT
         </Text>
-      </View>
+      </View> */}
 
       <EditProfile />
     </View>
+    </SafeAreaView>
   );
 };
 
@@ -60,8 +61,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 20,
     alignItems: "center",
-    paddingVertical: 25,
-    marginBottom: 25,
+    paddingVertical: 15,
+    marginBottom: 15,
 
     shadowColor: "#000",
     shadowOpacity: 0.08,
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
   },
 
   accountContainer: {
-    marginBottom: 15,
+    marginBottom: 10,
   },
 
   accountTitle: {

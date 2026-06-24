@@ -2,8 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import HomeHeader from "../component/HomeHeader";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MainCard from "../component/cards/MainCard";
-import EditProfile from "../component/EditProfile";
-import ProfileScreen from "./ProfileScreen";
+
 
 const HomeScreen=()=>
 {
@@ -12,7 +11,7 @@ const HomeScreen=()=>
         
   <HomeHeader />
   <MainCard/>
-  <ProfileScreen/>
+
 </SafeAreaView>
     )
 }

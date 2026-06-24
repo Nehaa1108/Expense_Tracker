@@ -1,21 +1,28 @@
 import { useState } from "react"
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 const EditProfile = () =>
 {
 
-    const [update,setUpdate] = useState('')
+    const [isUpdate,setIsUpdate] = useState(false)
 
     const [formData,setFormData] = useState({
         username:'',
         email:'',
-        password:''
     })
 
     return (
-       <View style={styles.container}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+       <View 
+      //  style={styles.container}
+       >
+         
   <View>
-    <Text style={styles.heading}>Edit Profile</Text>
+   
+    <Text 
+    // style={styles.heading}
+    >Edit Profile</Text>
   </View>
 
   <View style={styles.formContainer}>
@@ -45,20 +52,18 @@ const EditProfile = () =>
       }
     />
 
-    <TextInput
-      style={styles.input}
-      placeholder="Password"
-      placeholderTextColor="grey"
-      secureTextEntry
-    />
+  
   </View>
 
   <TouchableOpacity style={styles.button}>
     <Text style={styles.buttonText}>
-      {update ? "Update" : "Add"}
+      {isUpdate ? "Update" : "Add"}
     </Text>
   </TouchableOpacity>
+ 
 </View>
+ </TouchableWithoutFeedback>
+
     )
 }
 
