@@ -1,79 +1,100 @@
-import { useState } from "react"
-import { Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context"
+import { useState } from "react";
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+  ScrollView,
+} from "react-native";
+import { useSelector } from "react-redux";
 
-const EditProfile = () =>
-{
+const EditProfile = () => {
 
-    const [isUpdate,setIsUpdate] = useState(false)
+  const user =useSelector(
+    (state:any)=> state.auth.user
+  )
 
-    const [formData,setFormData] = useState({
-        username:'',
-        email:'',
-    })
+  const email = useSelector(
+    (state:any)=> state.auth.registeredUser
+  )
+  const [isUpdate, setIsUpdate] = useState(false);
 
-    return (
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+  });
+
+  const handleSignout=()=>
+  {
+    
+  }
+
+
+  return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-       <View 
-      //  style={styles.container}
-       >
-         
-  <View>
-   
-    <Text 
-    // style={styles.heading}
-    >Edit Profile</Text>
-  </View>
+      <KeyboardAvoidingView
+        // style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <ScrollView
+          contentContainerStyle={styles.container}
+          keyboardShouldPersistTaps="handled"
+        >
+          <Text style={styles.heading}>Edit Profile</Text>
 
-  <View style={styles.formContainer}>
-    <TextInput
-      style={styles.input}
-      placeholder="Username"
-      placeholderTextColor="grey"
-      value={formData.username}
-      onChangeText={(item) =>
-        setFormData({
-          ...formData,
-          username: item,
-        })
-      }
-    />
+          <View style={styles.formContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder={user?.username}
+              placeholderTextColor="grey"
+              value={formData.username}
+              onChangeText={(item) =>
+                setFormData({
+                  ...formData,
+                  username: item,
+                })
+              }
+              readOnly
+            />
 
-    <TextInput
-      style={styles.input}
-      placeholder="Email"
-      placeholderTextColor="grey"
-      value={formData.email}
-      onChangeText={(item) =>
-        setFormData({
-          ...formData,
-          email: item,
-        })
-      }
-    />
+            <TextInput
+              style={styles.input}
+              placeholder={email?.email}
+              placeholderTextColor="grey"
+              value={formData.email}
+              onChangeText={(item) =>
+                setFormData({
+                  ...formData,
+                  email: item,
+                })
+              }
+              readOnly
+            />
+          </View>
 
-  
-  </View>
+          <TouchableOpacity style={styles.button}
+          onPress={handleSignout}>
+            <Text style={styles.buttonText}>
+              {isUpdate ? "Update" : "Add"}
+            </Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
+  );
+};
 
-  <TouchableOpacity style={styles.button}>
-    <Text style={styles.buttonText}>
-      {isUpdate ? "Update" : "Add"}
-    </Text>
-  </TouchableOpacity>
- 
-</View>
- </TouchableWithoutFeedback>
-
-    )
-}
-
-export default EditProfile
+export default EditProfile;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     padding: 20,
-    marginTop: 20,
   },
 
   heading: {

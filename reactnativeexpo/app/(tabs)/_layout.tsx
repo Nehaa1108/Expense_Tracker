@@ -6,6 +6,8 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: true,
+    tabBarActiveTintColor: "#f72323",
+    tabBarInactiveTintColor: "gray",
       }}
     >
 
@@ -13,9 +15,9 @@ export default function TabLayout() {
         name="home"
         options={{
           title: "Home",
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color, size, focused }) => (
             <Ionicons
-              name="person"
+              name={focused ? "home-outline" : "home-sharp"}
               size={size}
               color={color}
             />
@@ -27,9 +29,9 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: "Profile",
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color, size, focused }) => (
             <Ionicons
-              name="person"
+              name={focused? "person" : "person-circle-sharp"}
               size={size}
               color={color}
             />
@@ -41,9 +43,9 @@ export default function TabLayout() {
         name="setting"
         options={{
           title: "Setting",
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color, size , focused}) => (
             <Ionicons
-              name="person"
+             name={focused ? "settings" : "settings-sharp"}
               size={size}
               color={color}
             />

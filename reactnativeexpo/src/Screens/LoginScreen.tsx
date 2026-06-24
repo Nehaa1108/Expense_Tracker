@@ -35,7 +35,7 @@ import { reload } from "expo-router/build/global-state/routing";
             dispatch(
               login({
                 username:formData.username,
-                 email: registeredUser?.email,
+                 email: formData.email,
               })
             )
             console.log("dispatch",formData.username)

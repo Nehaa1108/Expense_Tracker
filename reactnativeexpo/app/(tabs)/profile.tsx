@@ -19,7 +19,7 @@ const ProfileScreen = () => {
 );
 
   return (
-    <SafeAreaView>
+  
     <View 
     // style={styles.container}
     >
@@ -44,7 +44,7 @@ const ProfileScreen = () => {
 
       <EditProfile />
     </View>
-    </SafeAreaView>
+ 
   );
 };
 
