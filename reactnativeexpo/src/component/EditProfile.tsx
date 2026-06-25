@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
   Keyboard,
@@ -10,8 +11,12 @@ import {
   TouchableWithoutFeedback,
   View,
   ScrollView,
+  Alert,
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { logout } from "../auth/authSlice";
+import PicProfile from "./cards/PicProfile";
 
 const EditProfile = () => {
 
@@ -19,6 +24,9 @@ const EditProfile = () => {
     (state:any)=> state.auth.user
   )
 
+ 
+  const dispatch = useDispatch()
+const router =useRouter()
   const email = useSelector(
     (state:any)=> state.auth.registeredUser
   )
@@ -29,14 +37,24 @@ const EditProfile = () => {
     email: "",
   });
 
-  const handleSignout=()=>
+  const handleLogout = async ()=>
   {
-    
+      try{
+        dispatch(logout())
+        const res = await AsyncStorage.removeItem("token")
+        router.replace("/")
+        console.log("res",res)
+      }
+      catch(error){
+        const errorMessage = error instanceof Error ? error.message : String(error)
+        Alert.alert("Something went wrong", errorMessage)
+        console.log("error",error)
+      }
   }
-
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      
       <KeyboardAvoidingView
         // style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -45,8 +63,7 @@ const EditProfile = () => {
           contentContainerStyle={styles.container}
           keyboardShouldPersistTaps="handled"
         >
-          <Text style={styles.heading}>Edit Profile</Text>
-
+<PicProfile/>
           <View style={styles.formContainer}>
             <TextInput
               style={styles.input}
@@ -78,10 +95,19 @@ const EditProfile = () => {
           </View>
 
           <TouchableOpacity style={styles.button}
-          onPress={handleSignout}>
+          onPress=
+          {handleLogout}>
             <Text style={styles.buttonText}>
-              {isUpdate ? "Update" : "Add"}
+              Sign out
+              {/* {isUpdate ? "Update" : "Add"} */}
             </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => router.push("/(tabs)/editprofilepic")}
+            activeOpacity={0.7}
+            style={{marginTop:12}}
+          >
+            <Text style={{color: '#2563EB'}}>Edit Profile</Text>
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>

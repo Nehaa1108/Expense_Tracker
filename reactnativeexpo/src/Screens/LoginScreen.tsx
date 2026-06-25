@@ -65,8 +65,8 @@ import { reload } from "expo-router/build/global-state/routing";
             behavior={Platform.OS==="ios"? "padding" :"height"}>
             <View style={styles.formContainer}>
                <Text style={styles.label}>
-  Username
-</Text>
+                    Username
+               </Text>
                 <TextInput
                   style={styles.input}
                 placeholder="Enter Username"
