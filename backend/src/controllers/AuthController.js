@@ -209,3 +209,36 @@ res.status(200).json({
 //all device have session - {user id, refresh tokenHash,ip,userAgent,createdAt,updatedAt,revoke}
 
 // models--->sessions.model
+
+
+
+export async function logout(req, res) {
+  try {
+    // User id comes from auth middleware
+    const userId = req.user.id;
+
+    // Revoke all active sessions of this user
+    await sessionModel.updateMany(
+      {
+        user: userId,
+        revoked: false,
+      },
+      {
+        revoked: true,
+      }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Logged out successfully",
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+}
