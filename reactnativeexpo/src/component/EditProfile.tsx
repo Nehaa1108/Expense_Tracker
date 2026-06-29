@@ -103,7 +103,8 @@ const router =useRouter()
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => router.push("/(tabs)/editprofilepic")}
+          <TouchableOpacity 
+          // onPress={() => router.push("/(tabs)/editprofilepic")}
             activeOpacity={0.7}
             style={{marginTop:12}}
           >
