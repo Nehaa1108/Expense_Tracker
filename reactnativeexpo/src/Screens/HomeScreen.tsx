@@ -2,6 +2,8 @@ import { StyleSheet, Text, View } from "react-native";
 import HomeHeader from "../component/HomeHeader";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MainCard from "../component/cards/MainCard";
+import AllExpenses from "../component/AllExpenses";
+import AddExpense from "../component/AddExpense";
 
 
 const HomeScreen=()=>
@@ -11,7 +13,8 @@ const HomeScreen=()=>
         
   <HomeHeader />
   <MainCard/>
-
+  <AllExpenses/>
+  <AddExpense/>
 </SafeAreaView>
     )
 }

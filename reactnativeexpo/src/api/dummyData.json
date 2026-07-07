@@ -1,0 +1,49 @@
+{
+  "transactions": [
+    {
+      "id": "tx_001",
+      "title": "Grocery Run",
+      "amount": 1500.5,
+      "category": "Groceries",
+      "date": "2026-07-06",
+      "type": "expense"
+    },
+    {
+      "id": "tx_002",
+      "title": "Monthly Salary",
+      "amount": 75000,
+      "category": "Salary",
+      "date": "2026-07-01",
+      "type": "income"
+    },
+    {
+      "id": "tx_003",
+      "title": "Netflix Subscription",
+      "amount": 649,
+      "category": "Entertainment",
+      "date": "2026-07-05",
+      "type": "expense"
+    },
+    {
+      "id": "tx_004",
+      "title": "Youtube Premium",
+      "amount": 75000,
+      "category": "Entertainment",
+      "date": "2026-07-05",
+      "type": "expense"
+    },
+     {
+      "id": "tx_005",
+      "title": "Grocery Run",
+      "amount": 80000,
+      "category": "Groceries",
+      "date": "2026-07-02",
+      "type": "income"
+    }
+  ],
+  "budget": {
+    "totalLimit": 50000,
+    "totalSpent": 2150.5,
+    "remaining": 47849.5
+  }
+}

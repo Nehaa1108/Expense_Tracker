@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
 
     paddingHorizontal: 24,
-    paddingBottom: 15,
+    paddingBottom: 5,
 
     backgroundColor: '#F8FAFC',
   },
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
 
   subTitle: {
-    marginTop: 4,
+    marginTop: 2,
     fontSize: 15,
     color: '#64748B',
   },
