@@ -1,50 +1,198 @@
-# Welcome to your Expo app 👋
+# 💰 Expense Tracker App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A modern **Expense Tracker Mobile Application** built with **React Native**, **Expo Router**, **Redux Toolkit** and **TypeScript**. The application is designed to help users manage their daily expenses with a clean and intuitive interface.
 
-## Get started
+> 🚧 **Project Status:** Currently Under Development
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## 📱 Current Progress
 
-2. Start the app
+### ✅ Authentication Module (Completed)
 
-   ```bash
-   npx expo start
-   ```
+The authentication flow has been completed and includes:
 
-In the output, you'll find options to open the app in a
+- Login Screen
+- Register Screen
+- Forgot Password
+- OTP Verification
+- Reset Password
+- Password Reset Success Screen
+- Authentication Navigation Flow
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 🚧 In Progress
 
-## Get a fresh project
+The following modules are currently under development:
 
-When you're ready, run:
+- Home Dashboard
+- Expense Management
+- Income Management
+- User Profile
+- Settings
+- Expense Analytics
+- Category Management
+- Backend Integration
+- API Integration
 
-```bash
-npm run reset-project
+---
+
+# ✨ Features
+
+### Authentication
+
+- User Registration
+- Secure Login
+- Forgot Password
+- OTP Verification
+- Reset Password
+- Success Confirmation Screen
+
+### Dashboard (In Progress)
+
+- Expense Summary
+- Total Income
+- Total Expenses
+- Remaining Balance
+- Recent Transactions
+
+### Expense Management (In Progress)
+
+- Add Expense
+- Edit Expense
+- Delete Expense
+- Expense Categories
+- Expense History
+
+### Profile (In Progress)
+
+- Edit Profile
+- Update Profile Picture
+- User Information
+
+---
+
+# 📂 Project Structure
+
+```
+Expense_Tracker
+│
+├── app
+│   ├── (tabs)
+│   │   ├── home.tsx
+│   │   ├── profile.tsx
+│   │   ├── setting.tsx
+│   │   └── _layout.tsx
+│   │
+│   ├── index.tsx
+│   ├── register.tsx
+│   ├── forgot.tsx
+│   ├── otp.tsx
+│   ├── reset.tsx
+│   ├── resetsuccess.tsx
+│   └── _layout.tsx
+│
+├── src
+│   ├── api
+│   ├── auth
+│   ├── component
+│   ├── Screens
+│   ├── store
+│   └── utils
+│
+└── assets
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+# 🛠️ Tech Stack
 
-To learn more about developing your project with Expo, look at the following resources:
+- React Native
+- Expo
+- Expo Router
+- Redux Toolkit
+- JavaScript
+- TypeScript
+- React Navigation
+- React Native Paper
+- React Native Vector Icons
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+---
 
-## Join the community
+# 🚀 Getting Started
 
-Join our community of developers creating universal apps.
+## Clone Repository
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+git clone https://github.com/Nehaa1108/Expense_Tracker.git
+```
+
+## Install Dependencies
+
+```bash
+npm install
+```
+
+## Start Development Server
+
+```bash
+npx expo start
+```
+
+## Run Android
+
+```bash
+npx expo run:android
+```
+
+## Run iOS
+
+```bash
+npx expo run:ios
+```
+
+---
+
+# 📸 Screenshots
+
+> Screenshots will be added after completing the core modules.
+
+---
+
+# 🔮 Upcoming Features
+
+- Backend Integration
+- JWT Authentication
+- Database Integration
+- Add Income
+- Expense Categories
+- Monthly Reports
+- Charts & Analytics
+- Dark Mode
+- Notifications
+- Search & Filter
+- Export Reports
+- Cloud Synchronization
+
+---
+
+# 🎯 Project Goal
+
+The goal of this project is to build a production-ready Expense Tracker application following clean architecture and reusable component design. The application aims to provide a seamless experience for tracking income and expenses while demonstrating modern React Native development practices.
+
+---
+
+# 👨‍💻 Developer
+
+**Neha Gupta**
+
+React Native Developer
+
+---
+
+## ⭐ Project Status
+
+**Current Version:** v1.0 (Authentication Module Completed)
+
+🚧 Development is actively in progress. The expense management, dashboard, and backend integration modules will be completed in upcoming versions.
